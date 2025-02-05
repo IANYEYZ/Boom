@@ -1,0 +1,132 @@
+html {
+    padding: 0;
+    margin: 0;
+    background-color: #F8F8F8;
+    font-size: large;
+}
+head {
+    padding: 0;
+    margin: 0;
+}
+body {
+    padding: 10px;
+    margin: auto;
+    border: 0;
+    height: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    max-width: 700px;
+}
+header {
+    margin: auto;
+    text-align: center;
+    align-items: center;
+    line-height: 25px;
+}
+.nav {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    justify-content: space-between;
+}
+.nav > a {
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    padding-top: 30px;
+    text-decoration: none;
+}
+.nav ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    padding-top: 30px;
+}
+.nav ul li {
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.nav ul li a {
+    text-decoration: underline #5390D9;
+    color: #5390D9;
+}
+.img {
+    font-size: xx-large;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.block {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.block-editor {
+    position: relative;
+}
+.badge-container {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    display: flex;
+    gap: 5px;
+}
+.badge {
+    background-color: #EDEDE9;
+    padding-top: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 1px;
+    cursor: pointer;
+    display: none;
+}
+
+.block:hover .badge {
+    display: block;
+}
+
+.text-area {
+    border: 0;
+    padding: 5px;
+    width: 100%;
+    font-size: large;
+}
+
+.stw {
+    cursor: pointer;
+}
+
+main {
+    padding-top: 50px;
+}
+
+@font-face {
+    font-family: jetbrains-mono;
+    src: url(JetBrainsMono-VariableFont_wght.ttf);
+}
+
+.cm-editor {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.cm-editor .cm-content {
+    font-family: jetbrains-mono;
+}
+
+.code-result {
+    padding-left: 15px;
+    background-color: #F0F0F0;
+    font-family: jetbrains-mono;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.code-holder {
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.2);
+}
