@@ -127,6 +127,21 @@ main {
     padding-bottom: 10px;
 }
 
+.code-result-holder {
+    position: relative;
+}
+
 .code-holder {
     box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.code-editor {
+    font-family: jetbrains-mono;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 0;
+    width: 97%;
+    font-size: 1em;
 }

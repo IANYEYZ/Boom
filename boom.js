@@ -1,9 +1,11 @@
 blocks = []
 app = document.getElementById("app")
-Iblize
+console.log(app)
 
 editors = []
 nodeWithEditor = []
+
+var mdp = makeMDP();
 
 renderBlock = (block, node, id_) => {
     if (block[0] == "html") {
@@ -13,19 +15,21 @@ renderBlock = (block, node, id_) => {
                 <div class="badge" onclick = "del(${id_})">del</div>
                 <div class="badge" onclick = "addNew(${id_}, 'html')">+html</div>
                 <div class="badge" onclick = "addNew(${id_}, 'md')">+markdown</div>
+                <div class="badge" onclick = "addNew(${id_}, 'code')">+code</div>
             </div>
             <div onclick="toTextArea(${id_})" id="block${id_}">
                 ${block[1]}
             </div>
         </div>`
     } else if (block[0] == "md") {
-        html = marked.parse(block[1])
+        html = mdp.render(block[1])
         node.innerHTML += 
         /* html */`<div class="block">
             <div class="badge-container">
                 <div class="badge" onclick = "del(${id_})">del</div>
                 <div class="badge" onclick = "addNew(${id_}, 'html')">+html</div>
                 <div class="badge" onclick = "addNew(${id_}, 'md')">+markdown</div>
+                <div class="badge" onclick = "addNew(${id_}, 'code')">+code</div>
             </div>
             <div onclick="toTextArea(${id_})" id="block${id_}">
                 ${html}
@@ -44,22 +48,26 @@ renderBlock = (block, node, id_) => {
                 <div class="badge" onclick = "del(${id_})">del</div>
                 <div class="badge" onclick = "addNew(${id_}, 'html')">+html</div>
                 <div class="badge" onclick = "addNew(${id_}, 'md')">+markdown</div>
+                <div class="badge" onclick = "addNew(${id_}, 'code')">+code</div>
             </div>
             <div>
                 <div id="code${id_}" class="code-holder">
-                    <div id="codeEditor${id_}">
-                    </div>
-                    <div id="codeResult${id_}" class="code-result">
+                    <textarea id="codeEditor${id_}" class="code-editor">${block[1]}</textarea>
+                    <div class="code-result-holder">
+                        <div class="badge" onclick="run(${id_})">run</div>
+                        <div id="codeResult${id_}" class="code-result">${block[2]}</div>
                     </div>
                 </div>
             </div>
         </div>`
         // editors.push(new Iblize(`#codeEditor${id_}`))
         // editors[editors.length - 1].setValue(block[1])
-        const initialState = cm6.createEditorState(block[1]);
-        editors.push(cm6.createEditorView(initialState, document.getElementById(`codeEditor${id_}`)));
-        nodeWithEditor.push(document.getElementById(`codeEditor${id_}`))
-        document.getElementById(`codeResult${id_}`).innerHTML = eval(block[1])
+        // const initialState = cm6.createEditorState(block[1]);
+        // editors.push(cm6.createEditorView(initialState, document.getElementById(`codeEditor${id_}`)));
+        // nodeWithEditor.push(document.getElementById(`codeEditor${id_}`))
+        document.getElementById(`codeEditor${id_}`).addEventListener('change', (event) => {
+            blocks[id_][1] = event.target.value
+        })
     }
 }
 
@@ -114,6 +122,11 @@ toTextArea = (id) => {
 }
 
 addNew = (id, typ) => {
+    if (typ == 'code') {
+        blocks.splice(id + 1, 0, [typ, "1 + 2 + 3 + 4 + 5", 15])
+        renderAll()
+        return
+    }
     blocks.splice(id + 1, 0, [typ, "click to start editing"])
     renderAll()
 }
@@ -123,7 +136,14 @@ init = () => {
     renderAll()
 }
 
-blocks.push(["html", /* html */`<h1>Hello, world!</h1>`])
-blocks.push(["md", /* markdown */`# Hello, world!`])
-blocks.push(["code", /* js */`1 + 2 + 3 + 4 + 5`])
+run = (id) => {
+    console.log("run")
+    blocks[id][2] = eval(blocks[id][1])
+    // document.getElementById(`codeResult${id_}`).innerHTML = eval(blocks[id][1])
+    renderAll()
+}
+blocks.push(["md", /* markdown */`# Boom.js`])
+blocks.push(["md", "**Boom.js** is an interactive notebook that supports javascript, you can click on any elements to edit it(supports html and markdown, but only one per element), note that your prgress **won't be saved**"])
+blocks.push(["md", "Here's a programme to add some numbers"])
+blocks.push(["code", /* js */`1 + 2 + 3 + 4 + 5`, 15])
 renderAll()
